@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<project default="all" basedir=".">
+
+	<target name="all" depends="package" />
+
+	<target name="clean">
+		<delete dir="build" />
+		<delete dir="testreport" />
+		<delete file="dablisp.jar" />
+	</target>
+
+	<target name="build" depends="clean">
+		<mkdir dir="build/classes" />
+		<mkdir dir="build/classes.test" />
+		<copy todir="build/classes">
+			<fileset dir="src">
+				<include name="*.lisp"/>
+			</fileset>
+		</copy>
+		<javac srcdir="src" destdir="build/classes" debug="true" debuglevel="source,lines,vars" />
+		<javac srcdir="src.test" destdir="build/classes.test" debug="true" debuglevel="source,lines,vars" >
+			<classpath>
+				<pathelement path="build/classes" />
+				<pathelement path="lib/junit.jar" />
+				<pathelement path="${java.class.path}" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="test" depends="build">
+		<mkdir dir="testreport" />
+		<junit printsummary="yes" fork="yes" haltonfailure="yes" haltonerror="yes">
+			<classpath>
+				<pathelement path="build/classes.test" />
+				<pathelement path="build/classes" />
+				<pathelement path="lib/junit.jar" />
+				<pathelement path="lib/ant-junit.jar" />
+				<pathelement path="${java.class.path}" />
+			</classpath>
+			<formatter type="plain" />
+			<batchtest todir="testreport">
+				<fileset dir="src.test">
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+	<target name="package" depends="test">
+		<jar destfile="dablisp.jar" basedir="build/classes">
+			<manifest>
+				<attribute name="Main-Class" value="dablisp.Lisp" />
+			</manifest>
+		</jar>
+	</target>
+
+</project>

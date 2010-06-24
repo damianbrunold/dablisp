@@ -1,0 +1,80 @@
+;; lisp todo
+
+- macro-expansion in repl/eval should use a code-walker (must not expand: (let ((loop (gensym))) ...))
+
+- backtrace...
+
+- better error reporting
+  (e.g. when calling (random 1000 s) instead of (random 1000 :random-state s) a non-informative message is shown)
+
+- function inlining
+
+- declare
+  - inline
+  - special
+  - optimize
+  - ignore others
+
+- check flet
+
+- defvar, defparameter, defconstant as macros
+
+- substitute with :from-end t 
+
+- open
+- with-open-file
+- read-sequence
+- write-sequence
+- write-line
+- read-line
+- charstream vs. bytestream
+- read-byte
+- write-byte
+- read-delimited-list
+
+- list-length should cope with circular lists (see implementation in hyperspec!)
+
+- fill
+- search
+
+- subst
+- nsubst
+- subst-if
+- nsubst-if
+- subst-if-not
+- nsubst-if-not
+
+- *print-array*
+- *print-base*
+- *print-case*
+- *print-escape*
+
+- destructuring-bind
+
+- literal arrays
+- make-array with all options (adjustable, displaced)
+
+- full syntax for read, write
+
+- sequence functions with more than one sequence arguments might
+  be called with mixed lists/vectors. Not handled yet...
+
+- loop (at least simple cases)
+
+- cond-clause can contain only condition => returns the condition value
+
+- support for packages
+- support for structures
+- primitives should support &optional, &rest, &key
+
+- more efficient in case of lists (no elt calls!):
+  - merge
+  - count, count-if, count-if-not
+  - map
+  - map-into
+  - reduce
+  - mismatch
+  
+- with less consing
+  - map
+  - map-into
